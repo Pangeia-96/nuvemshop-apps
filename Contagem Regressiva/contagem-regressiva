@@ -1,0 +1,49 @@
+(function () {
+    'use strict';
+    // if (window.ContagemRegressivaLoaded) return;
+    // window.SimplesBarLoaded = true;
+
+    window.__ALTURAS_BARRAS_TOPO__ = window.__ALTURAS_BARRAS_TOPO__ || {};
+
+    const css = `
+        #simples-bar {
+            left:0;
+            right:0;
+            top:0;
+            height:50px;
+            background:linear-gradient(90deg,#ff6b6b,#4ecdc4);
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font:bold 16px Arial;
+            z-index:9999;
+            box-shadow:0 2px 10px rgba(0,0,0,.2)
+        }
+    `;
+
+    document.head.appendChild(Object.assign(document.createElement('style'), { textContent: css }));
+
+    document.body.insertAdjacentHTML('afterbegin', '<div id="simples-bar" data-app="simples-bar">🔥 OFERTA!</div>');
+
+    // REGISTRA (imediatamente após HTML)
+    const bar = document.getElementById('simples-bar');
+    window.__ALTURAS_BARRAS_TOPO__['simples-bar'] = bar.offsetHeight;
+
+    // DISPARA EVENTO
+    window.dispatchEvent(new CustomEvent('appbar:registered', { detail: { id: 'simples-bar', height: bar.offsetHeight } }));
+
+    // LISTENER (igual seu window.addEventListener('scroll'))
+    window.addEventListener('appbar:registered', function () {
+        const heights = window.__ALTURAS_BARRAS_TOPO__;
+        const ids = Object.keys(heights).sort();
+        let top = 0;
+        ids.forEach(id => {
+            const el = document.querySelector(`[data-app="${id}"]`);
+            if (el) el.style.top = top + 'px';
+            top += heights[id];
+        });
+        document.body.style.paddingTop = top + 'px';
+    });
+
+})();
