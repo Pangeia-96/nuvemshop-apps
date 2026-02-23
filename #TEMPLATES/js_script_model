@@ -1,0 +1,66 @@
+(function () {
+    'use strict';
+
+    // 1. Em window crie uma variável no padrão NomeDoAppIniciado
+    // para evitar apps duplicados
+    if (window.) return;
+    window. = true;
+
+    const app_id = 'p96-'
+
+    const app_config = {
+
+    }
+
+    // 2. TODOS os seletores CSS devem sempre estar no padrão #${app_id} .classe_do_seletor
+    const css = `
+
+        /*------------ ACIMA DE 768px (desktop) ------------*/
+        #${app_id} {
+          
+        }
+
+        /*------------ ATÉ 768px (tablet / mobile landscape) ------------*/
+        @media (max-width: 768px) {
+
+        }
+
+        /*------------ ATÉ 480px (celular estreito) ------------*/
+        @media (max-width: 480px) {
+
+        }
+    `;
+
+    // 3. TODOS os componentes do app devem sempre estar contidos 
+    // dentro de uma div principal que herda o id do app;
+    const html = `
+    <div id="${app_id}">
+      
+    </div>
+    `;
+
+    document.head.appendChild(Object.assign(document.createElement('style'), { textContent: css }));
+    document.body.insertAdjacentHTML('afterbegin', html);
+
+    // // REGISTRA (imediatamente após HTML)
+    // const bar = document.getElementById(app_id);
+    // window.__ALTURAS_BARRAS_TOPO__[app_id] = bar.offsetHeight;
+
+    // // DISPARA EVENTO
+    // window.dispatchEvent(new CustomEvent('topbar:registered', { detail: { id: app_id, height: bar.offsetHeight } }));
+
+    // window.addEventListener('topbar:registered', function () {
+    //     const heights = window.__ALTURAS_BARRAS_TOPO__;
+    //     const ids = Object.keys(heights).sort();
+    //     let top = 0;
+    //     ids.forEach(id => {
+    //         const el = document.querySelector(`[data-app="${id}"]`);
+    //         if (el) el.style.top = top + 'px';
+    //         top += heights[id];
+    //     });
+    //     document.body.style.paddingTop = top + 'px';
+    // });
+
+    
+
+})();
